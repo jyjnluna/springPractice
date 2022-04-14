@@ -1,0 +1,18 @@
+데이터의 변환과 검증
+6. Validator란?
+객체를 검증하기 위한 인터페이스. 객체 검증기(validator)구현에 사용
+
+7. Validator를 이용한 검증 - 수동
+
+8. Validator를 이용한 검증 - 자동
+
+9. 글로벌 Validator
+하나의 Validator로 여러 객첼ㄹ 검증할 때, 글로벌 Validator로 등록
+
+10. MessageSource
+다양한 리소스에서 메시지를 읽기 위한 인터페이스
+프로퍼티 파일을 메시지 소스로 하는 ResourceBundleeMessageSource를 등록
+
+11. 검증 메시지의 출력
+스프링이 제공하는 커스텀 태그 라이브러리를 사용
+<form>대신 <form:form>사용
