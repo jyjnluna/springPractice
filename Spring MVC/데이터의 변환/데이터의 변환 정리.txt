@@ -1,0 +1,48 @@
+데이터의 변환과 검증
+1. WebDataBinder
+
+컨트롤러
+@RequestMapping("/getYoilMVC5")
+public String main(@ModelAttribute MyDate date, BindingResult result) {
+}
+
+
+요청 : http://localhost/ch2/getYoilMVC5?year=2022&month=4&day=13
+
+요청시 이런식으로 Parameter Map으로 바뀐다.
+name        value
+"year"       "2022" (String)
+"month"      "4" (String)
+"day"          "13" (String)
+
+이 값을 컨트롤러에서 MyDate를 매개변수 타입으로 하면
+MyDate
+2022     year (Int)
+4         month (Int)
+13        day (Int)
+이런 개체가 만들어진다.
+
+그런데 이 중간에 WebDataBinder라는 것이 있어서 타입을 변환하고 데이터를 검증한 후 BindingResult를 컨트롤러에게 넘겨줘서 컨트롤러가 그 값을 적절히 판단해서 처리할 수 있게 한다.
+
+2. RegisterController에 변환기능 추가하기 - 실습을 통해 공부
+
+3. PropertyEditor
+PropertyEditor - 양방향 타입 변환(String -> 타입, 타입 -> String)
+                     특정 타입이나 이름의 필드에 적용 가능
+디폴트 PropertyEditor - 스프링이 기본적으로 제공
+커스텀 PropertyEditor - 사용자가 직접 구현. PropertyEditorSupport를 상속하면 편리
+
+모든 컨트롤러 내에서의 변환 - WebBindingInitializer를 구현 후 등록
+특정 컨트롤러 내에서의 변환 - 컨트롤러에 @InitBinder가 붙은 메서드를 작성
+
+4. Converter와 ConversionService
+Converter - 단방향 타입 변환(타입A -> 타입B)
+               PropertyEditor의 단점을 개선(stateful -> stateless)
+ConversionService - 타입 변환 서비스를 제공. 여러 Converter를 등록 가능
+  WebDataBinder에 DefaultFormattingConversionService가 기본 등록
+  모든 컨트롤러 내에서의 변환 - ConfigurableWebBindingInitializer를 설정해서 사용
+  특정 컨트롤러 내에서의 변환 - 컨트롤러에 @InitBinder가 붙은 메서드를 작성
+
+5. Formatter
+Formatter - 양방향 타입 변환(String -> 타입, 타입 -> String)
+               바인딩할 필드에 적용 - @NumberFormat, @DateTimeFormat
